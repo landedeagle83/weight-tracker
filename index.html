@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #64ffda;
+        }
+
+        .stat-value.negative {
+            color: #64ffda;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #8892b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .input-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="number"], input[type="date"] {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #64ffda;
+        }
+
+        button {
+            padding: 15px 30px;
+            background: #64ffda;
+            color: #1a1a2e;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(100, 255, 218, 0.3);
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .history-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .history-title {
+            font-size: 1rem;
+            color: #8892b0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .history-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-date {
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+
+        .history-weight {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .history-delete {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .history-delete:hover {
+            opacity: 1;
+        }
+
+        .goal-info {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(100, 255, 218, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #64ffda;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #8892b0;
+            padding: 40px;
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 15px 10px;
+            }
+
+            .stat-value {
+                font-size: 1.4rem;
+            }
+
+            .input-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weight Tracker</h1>
+            <p class="subtitle">330 → 280 lbs</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="currentWeight">--</div>
+                <div class="stat-label">Current</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value negative" id="totalLost">--</div>
+                <div class="stat-label">Lost</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="toGoal">--</div>
+                <div class="stat-label">To Goal</div>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <div class="input-row">
+                <input type="date" id="dateInput">
+                <input type="number" id="weightInput" placeholder="Weight (lbs)" step="0.1" min="0" max="999">
+                <button onclick="addWeight()">Log</button>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="weightChart"></canvas>
+        </div>
+
+        <div class="history-section">
+            <div class="history-title">Recent Entries</div>
+            <div class="history-list" id="historyList">
+                <div class="empty-state">No entries yet. Log your first weight above!</div>
+            </div>
+        </div>
+
+        <div class="goal-info" id="goalInfo"></div>
+    </div>
+
+    <script>
+        const START_WEIGHT = 330;
+        const GOAL_WEIGHT = 280;
+        const STORAGE_KEY = 'weightTrackerData';
+
+        let weightData = [];
+        let chart = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            document.getElementById('dateInput').valueAsDate = new Date();
+            renderChart();
+            renderHistory();
+            updateStats();
+        });
+
+        function loadData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                weightData = JSON.parse(saved);
+                weightData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(weightData));
+        }
+
+        function addWeight() {
+            const dateInput = document.getElementById('dateInput');
+            const weightInput = document.getElementById('weightInput');
+            
+            const date = dateInput.value;
+            const weight = parseFloat(weightInput.value);
+
+            if (!date || !weight || weight <= 0) {
+                alert('Please enter a valid date and weight');
+                return;
+            }
+
+            // Remove existing entry for this date
+            weightData = weightData.filter(d => d.date !== date);
+            
+            // Add new entry
+            weightData.push({ date, weight });
+            weightData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            saveData();
+            renderChart();
+            renderHistory();
+            updateStats();
+
+            // Reset input
+            weightInput.value = '';
+            dateInput.valueAsDate = new Date();
+        }
+
+        function deleteEntry(date) {
+            weightData = weightData.filter(d => d.date !== date);
+            saveData();
+            renderChart();
+            renderHistory();
+            updateStats();
+        }
+
+        function updateStats() {
+            const currentEl = document.getElementById('currentWeight');
+            const lostEl = document.getElementById('totalLost');
+            const toGoalEl = document.getElementById('toGoal');
+            const goalInfoEl = document.getElementById('goalInfo');
+
+            if (weightData.length === 0) {
+                currentEl.textContent = START_WEIGHT;
+                lostEl.textContent = '0';
+                toGoalEl.textContent = (START_WEIGHT - GOAL_WEIGHT);
+                goalInfoEl.textContent = 'Start logging to track your progress!';
+                return;
+            }
+
+            const current = weightData[weightData.length - 1].weight;
+            const lost = START_WEIGHT - current;
+            const toGoal = current - GOAL_WEIGHT;
+
+            currentEl.textContent = current.toFixed(1);
+            lostEl.textContent = lost > 0 ? `-${lost.toFixed(1)}` : lost.toFixed(1);
+            toGoalEl.textContent = toGoal.toFixed(1);
+
+            // Calculate weekly average
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            const weekData = weightData.filter(d => new Date(d.date) >= weekAgo);
+            
+            if (weekData.length >= 2) {
+                const weeklyChange = weekData[weekData.length - 1].weight - weekData[0].weight;
+                const weeksToGoal = toGoal / Math.abs(weeklyChange);
+                
+                if (weeklyChange < 0 && toGoal > 0) {
+                    const targetDate = new Date();
+                    targetDate.setDate(targetDate.getDate() + (weeksToGoal * 7));
+                    goalInfoEl.textContent = `At current pace: goal by ${targetDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+                } else if (toGoal <= 0) {
+                    goalInfoEl.textContent = '🎉 Goal reached!';
+                } else {
+                    goalInfoEl.textContent = 'Keep going — consistency is key!';
+                }
+            } else {
+                const progress = ((START_WEIGHT - current) / (START_WEIGHT - GOAL_WEIGHT) * 100).toFixed(0);
+                goalInfoEl.textContent = `${progress}% to goal — keep logging daily!`;
+            }
+        }
+
+        function renderHistory() {
+            const list = document.getElementById('historyList');
+            
+            if (weightData.length === 0) {
+                list.innerHTML = '<div class="empty-state">No entries yet. Log your first weight above!</div>';
+                return;
+            }
+
+            const recent = [...weightData].reverse().slice(0, 10);
+            list.innerHTML = recent.map(entry => {
+                const date = new Date(entry.date + 'T00:00:00');
+                const formatted = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+                return `
+                    <div class="history-item">
+                        <span class="history-date">${formatted}</span>
+                        <span class="history-weight">${entry.weight} lbs</span>
+                        <button class="history-delete" onclick="deleteEntry('${entry.date}')">✕</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderChart() {
+            const ctx = document.getElementById('weightChart').getContext('2d');
+            
+            if (chart) {
+                chart.destroy();
+            }
+
+            const labels = weightData.map(d => d.date);
+            const weights = weightData.map(d => d.weight);
+
+            // Calculate 7-day moving average
+            const movingAvg = weights.map((_, i) => {
+                const start = Math.max(0, i - 6);
+                const slice = weights.slice(start, i + 1);
+                return slice.reduce((a, b) => a + b, 0) / slice.length;
+            });
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        {
+                            label: 'Weight',
+                            data: weights,
+                            borderColor: '#64ffda',
+                            backgroundColor: 'rgba(100, 255, 218, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#64ffda',
+                            tension: 0.1,
+                            fill: true
+                        },
+                        {
+                            label: '7-Day Average',
+                            data: movingAvg,
+                            borderColor: '#8892b0',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: 'Goal',
+                            data: labels.map(() => GOAL_WEIGHT),
+                            borderColor: 'rgba(255, 107, 107, 0.5)',
+                            borderWidth: 2,
+                            borderDash: [10, 5],
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#8892b0',
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'day',
+                                displayFormats: {
+                                    day: 'MMM d'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: '#8892b0'
+                            }
+                        },
+                        y: {
+                            min: Math.min(GOAL_WEIGHT - 10, ...weights) - 5,
+                            max: Math.max(START_WEIGHT, ...weights) + 5,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: '#8892b0'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Enter key to submit
+        document.getElementById('weightInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addWeight();
+        });
+    </script>
+</body>
+</html>
