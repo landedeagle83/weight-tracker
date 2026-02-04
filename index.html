@@ -200,6 +200,229 @@
             padding: 40px;
         }
 
+        /* Enhanced Stats Section */
+        .enhanced-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .enhanced-stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .enhanced-stat-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .enhanced-stat-icon {
+            font-size: 1.5rem;
+        }
+
+        .enhanced-stat-title {
+            font-size: 0.75rem;
+            color: #8892b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .enhanced-stat-value {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #64ffda;
+        }
+
+        .enhanced-stat-subtitle {
+            font-size: 0.8rem;
+            color: #8892b0;
+            margin-top: 5px;
+        }
+
+        .trend-positive {
+            color: #64ffda;
+        }
+
+        .trend-negative {
+            color: #ff6b6b;
+        }
+
+        /* Milestone Section */
+        .milestone-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .milestone-title {
+            font-size: 1rem;
+            color: #8892b0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .milestone-item {
+            text-align: center;
+            padding: 12px 5px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .milestone-item.achieved {
+            background: rgba(100, 255, 218, 0.15);
+            border-color: #64ffda;
+        }
+
+        .milestone-item.current {
+            background: rgba(100, 255, 218, 0.3);
+            border-color: #64ffda;
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.3);
+        }
+
+        .milestone-weight {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .milestone-status {
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        .milestone-item.achieved .milestone-status::after {
+            content: '✓';
+            color: #64ffda;
+        }
+
+        .milestone-item.current .milestone-status::after {
+            content: '→';
+            color: #64ffda;
+        }
+
+        .milestone-item.pending .milestone-status::after {
+            content: '○';
+            color: #8892b0;
+        }
+
+        /* Streak Counter */
+        .streak-section {
+            background: linear-gradient(135deg, rgba(100, 255, 218, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            text-align: center;
+        }
+
+        .streak-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #64ffda;
+            line-height: 1;
+        }
+
+        .streak-label {
+            font-size: 1rem;
+            color: #8892b0;
+            margin-top: 5px;
+        }
+
+        .streak-subtitle {
+            font-size: 0.85rem;
+            color: #8892b0;
+            margin-top: 10px;
+        }
+
+        /* Data Controls */
+        .data-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #64ffda;
+        }
+
+        .hidden-input {
+            display: none;
+        }
+
+        /* Weekly Comparison */
+        .comparison-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-title {
+            font-size: 1rem;
+            color: #8892b0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .comparison-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+        }
+
+        .comparison-label {
+            font-size: 0.7rem;
+            color: #8892b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comparison-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #fff;
+            margin-top: 5px;
+        }
+
         @media (max-width: 480px) {
             .stats-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -215,6 +438,22 @@
             }
 
             .input-row {
+                flex-direction: column;
+            }
+
+            .enhanced-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .milestone-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .comparison-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .data-controls {
                 flex-direction: column;
             }
         }
@@ -242,6 +481,80 @@
             </div>
         </div>
 
+        <!-- Streak Counter -->
+        <div class="streak-section" id="streakSection" style="display: none;">
+            <div class="streak-number" id="streakCount">0</div>
+            <div class="streak-label">Day Streak 🔥</div>
+            <div class="streak-subtitle" id="streakSubtitle">Log daily to build your streak!</div>
+        </div>
+
+        <!-- Enhanced Stats -->
+        <div class="enhanced-stats" id="enhancedStats" style="display: none;">
+            <div class="enhanced-stat-card">
+                <div class="enhanced-stat-header">
+                    <span class="enhanced-stat-icon">📉</span>
+                    <span class="enhanced-stat-title">Weekly Rate</span>
+                </div>
+                <div class="enhanced-stat-value" id="weeklyRate">--</div>
+                <div class="enhanced-stat-subtitle">lbs/week average</div>
+            </div>
+            <div class="enhanced-stat-card">
+                <div class="enhanced-stat-header">
+                    <span class="enhanced-stat-icon">📅</span>
+                    <span class="enhanced-stat-title">Projected Goal</span>
+                </div>
+                <div class="enhanced-stat-value" id="projectedDate">--</div>
+                <div class="enhanced-stat-subtitle">at current pace</div>
+            </div>
+            <div class="enhanced-stat-card">
+                <div class="enhanced-stat-header">
+                    <span class="enhanced-stat-icon">🏆</span>
+                    <span class="enhanced-stat-title">Best Week</span>
+                </div>
+                <div class="enhanced-stat-value" id="bestWeek">--</div>
+                <div class="enhanced-stat-subtitle">most lost in 7 days</div>
+            </div>
+            <div class="enhanced-stat-card">
+                <div class="enhanced-stat-header">
+                    <span class="enhanced-stat-icon">📊</span>
+                    <span class="enhanced-stat-title">Days Logged</span>
+                </div>
+                <div class="enhanced-stat-value" id="daysLogged">--</div>
+                <div class="enhanced-stat-subtitle">total entries</div>
+            </div>
+        </div>
+
+        <!-- Milestone Tracker -->
+        <div class="milestone-section" id="milestoneSection" style="display: none;">
+            <div class="milestone-title">🏆 5 lb Milestones</div>
+            <div class="milestone-grid" id="milestoneGrid">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+
+        <!-- Weekly Comparison -->
+        <div class="comparison-section" id="comparisonSection" style="display: none;">
+            <div class="comparison-title">📊 Week-over-Week</div>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <div class="comparison-label">This Week</div>
+                    <div class="comparison-value" id="thisWeekAvg">--</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">Last Week</div>
+                    <div class="comparison-value" id="lastWeekAvg">--</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">Change</div>
+                    <div class="comparison-value" id="weekChange">--</div>
+                </div>
+                <div class="comparison-item">
+                    <div class="comparison-label">vs Goal Pace</div>
+                    <div class="comparison-value" id="vsGoalPace">--</div>
+                </div>
+            </div>
+        </div>
+
         <div class="input-section">
             <div class="input-row">
                 <input type="date" id="dateInput">
@@ -262,6 +575,13 @@
         </div>
 
         <div class="goal-info" id="goalInfo"></div>
+
+        <!-- Data Controls -->
+        <div class="data-controls">
+            <button class="btn-secondary" onclick="exportData()">📥 Export Data</button>
+            <button class="btn-secondary" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
+            <input type="file" id="importFile" class="hidden-input" accept=".json" onchange="importData(this)">
+        </div>
     </div>
 
     <script>
@@ -341,6 +661,7 @@
                 lostEl.textContent = '0';
                 toGoalEl.textContent = (START_WEIGHT - GOAL_WEIGHT);
                 goalInfoEl.textContent = 'Start logging to track your progress!';
+                hideEnhancedSections();
                 return;
             }
 
@@ -374,6 +695,271 @@
                 const progress = ((START_WEIGHT - current) / (START_WEIGHT - GOAL_WEIGHT) * 100).toFixed(0);
                 goalInfoEl.textContent = `${progress}% to goal — keep logging daily!`;
             }
+
+            // Update all enhanced stats
+            updateStreak();
+            updateEnhancedStats();
+            updateMilestones();
+            updateWeeklyComparison();
+            showEnhancedSections();
+        }
+
+        function hideEnhancedSections() {
+            document.getElementById('streakSection').style.display = 'none';
+            document.getElementById('enhancedStats').style.display = 'none';
+            document.getElementById('milestoneSection').style.display = 'none';
+            document.getElementById('comparisonSection').style.display = 'none';
+        }
+
+        function showEnhancedSections() {
+            document.getElementById('streakSection').style.display = 'block';
+            document.getElementById('enhancedStats').style.display = 'grid';
+            document.getElementById('milestoneSection').style.display = 'block';
+            document.getElementById('comparisonSection').style.display = 'block';
+        }
+
+        function updateStreak() {
+            if (weightData.length === 0) return;
+
+            // Sort by date descending
+            const sorted = [...weightData].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            let streak = 0;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            // Check if logged today
+            const todayStr = today.toISOString().split('T')[0];
+            const loggedToday = sorted.some(d => d.date === todayStr);
+            
+            // Start from today or yesterday depending on if logged today
+            let checkDate = new Date(today);
+            if (!loggedToday) {
+                checkDate.setDate(checkDate.getDate() - 1);
+            }
+            
+            // Count consecutive days
+            for (let i = 0; i < sorted.length; i++) {
+                const checkDateStr = checkDate.toISOString().split('T')[0];
+                const hasEntry = sorted.some(d => d.date === checkDateStr);
+                
+                if (hasEntry) {
+                    streak++;
+                    checkDate.setDate(checkDate.getDate() - 1);
+                } else {
+                    break;
+                }
+            }
+
+            document.getElementById('streakCount').textContent = streak;
+            
+            const subtitle = document.getElementById('streakSubtitle');
+            if (streak === 0) {
+                subtitle.textContent = 'Log today to start your streak!';
+            } else if (streak < 7) {
+                subtitle.textContent = 'Keep going! Build that momentum!';
+            } else if (streak < 30) {
+                subtitle.textContent = 'Weekly streak! You\'re crushing it! 💪';
+            } else {
+                subtitle.textContent = 'Monthly streak! Legendary discipline! 🔥';
+            }
+        }
+
+        function updateEnhancedStats() {
+            // Weekly Rate
+            if (weightData.length >= 2) {
+                const daysSpan = (new Date(weightData[weightData.length - 1].date) - new Date(weightData[0].date)) / (1000 * 60 * 60 * 24);
+                const totalLost = weightData[0].weight - weightData[weightData.length - 1].weight;
+                const weeklyRate = daysSpan > 0 ? (totalLost / daysSpan * 7) : 0;
+                
+                const rateEl = document.getElementById('weeklyRate');
+                rateEl.textContent = weeklyRate > 0 ? `-${weeklyRate.toFixed(1)}` : weeklyRate.toFixed(1);
+                rateEl.className = 'enhanced-stat-value ' + (weeklyRate > 0 ? 'trend-positive' : 'trend-negative');
+            }
+
+            // Projected Goal Date
+            if (weightData.length >= 2) {
+                const current = weightData[weightData.length - 1].weight;
+                const toGoal = current - GOAL_WEIGHT;
+                
+                const daysSpan = (new Date(weightData[weightData.length - 1].date) - new Date(weightData[0].date)) / (1000 * 60 * 60 * 24);
+                const totalLost = weightData[0].weight - current;
+                const dailyRate = daysSpan > 0 ? totalLost / daysSpan : 0;
+                
+                if (dailyRate > 0 && toGoal > 0) {
+                    const daysToGoal = toGoal / dailyRate;
+                    const targetDate = new Date();
+                    targetDate.setDate(targetDate.getDate() + daysToGoal);
+                    
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    document.getElementById('projectedDate').textContent = `${months[targetDate.getMonth()]} ${targetDate.getDate()}`;
+                } else if (toGoal <= 0) {
+                    document.getElementById('projectedDate').textContent = 'Done!';
+                } else {
+                    document.getElementById('projectedDate').textContent = '--';
+                }
+            }
+
+            // Best Week
+            let bestWeekLoss = 0;
+            for (let i = 0; i < weightData.length; i++) {
+                const startDate = new Date(weightData[i].date);
+                const weekLater = new Date(startDate);
+                weekLater.setDate(weekLater.getDate() + 7);
+                
+                const weekData = weightData.filter(d => {
+                    const dDate = new Date(d.date);
+                    return dDate >= startDate && dDate <= weekLater;
+                });
+                
+                if (weekData.length >= 2) {
+                    const weekLoss = weekData[0].weight - weekData[weekData.length - 1].weight;
+                    if (weekLoss > bestWeekLoss) {
+                        bestWeekLoss = weekLoss;
+                    }
+                }
+            }
+            document.getElementById('bestWeek').textContent = bestWeekLoss > 0 ? `-${bestWeekLoss.toFixed(1)}` : '0';
+
+            // Days Logged
+            document.getElementById('daysLogged').textContent = weightData.length;
+        }
+
+        function updateMilestones() {
+            const current = weightData.length > 0 ? weightData[weightData.length - 1].weight : START_WEIGHT;
+            const grid = document.getElementById('milestoneGrid');
+            
+            const milestones = [];
+            for (let w = START_WEIGHT - 5; w >= GOAL_WEIGHT; w -= 5) {
+                let status = 'pending';
+                if (current <= w) {
+                    status = 'achieved';
+                } else if (current > w && current < w + 5) {
+                    status = 'current';
+                }
+                milestones.push({ weight: w, status });
+            }
+
+            grid.innerHTML = milestones.map(m => `
+                <div class="milestone-item ${m.status}">
+                    <div class="milestone-weight">${m.weight}</div>
+                    <div class="milestone-status"></div>
+                </div>
+            `).join('');
+        }
+
+        function updateWeeklyComparison() {
+            const today = new Date();
+            
+            // This week (last 7 days)
+            const weekAgo = new Date(today);
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            const thisWeekData = weightData.filter(d => new Date(d.date) >= weekAgo);
+            
+            // Last week (7-14 days ago)
+            const twoWeeksAgo = new Date(today);
+            twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+            const lastWeekData = weightData.filter(d => {
+                const dDate = new Date(d.date);
+                return dDate >= twoWeeksAgo && dDate < weekAgo;
+            });
+
+            // Calculate averages
+            const thisWeekAvg = thisWeekData.length > 0 
+                ? thisWeekData.reduce((a, b) => a + b.weight, 0) / thisWeekData.length 
+                : null;
+            const lastWeekAvg = lastWeekData.length > 0 
+                ? lastWeekData.reduce((a, b) => a + b.weight, 0) / lastWeekData.length 
+                : null;
+
+            document.getElementById('thisWeekAvg').textContent = thisWeekAvg ? thisWeekAvg.toFixed(1) : '--';
+            document.getElementById('lastWeekAvg').textContent = lastWeekAvg ? lastWeekAvg.toFixed(1) : '--';
+
+            // Week-over-week change
+            const changeEl = document.getElementById('weekChange');
+            if (thisWeekAvg && lastWeekAvg) {
+                const change = lastWeekAvg - thisWeekAvg;
+                changeEl.textContent = change >= 0 ? `-${change.toFixed(1)}` : `+${Math.abs(change).toFixed(1)}`;
+                changeEl.style.color = change >= 0 ? '#64ffda' : '#ff6b6b';
+            } else {
+                changeEl.textContent = '--';
+            }
+
+            // vs Goal Pace (need to lose ~2 lbs/week to hit 50 lbs in 6 months)
+            const goalPaceEl = document.getElementById('vsGoalPace');
+            const TARGET_WEEKLY_LOSS = 1.9; // ~50 lbs in 26 weeks
+            
+            if (thisWeekAvg && lastWeekAvg) {
+                const actualLoss = lastWeekAvg - thisWeekAvg;
+                const diff = actualLoss - TARGET_WEEKLY_LOSS;
+                
+                if (Math.abs(diff) < 0.3) {
+                    goalPaceEl.textContent = '✓ On Track';
+                    goalPaceEl.style.color = '#64ffda';
+                } else if (diff > 0) {
+                    goalPaceEl.textContent = `+${diff.toFixed(1)} ahead`;
+                    goalPaceEl.style.color = '#64ffda';
+                } else {
+                    goalPaceEl.textContent = `${diff.toFixed(1)} behind`;
+                    goalPaceEl.style.color = '#ff6b6b';
+                }
+            } else {
+                goalPaceEl.textContent = '--';
+            }
+        }
+
+        function exportData() {
+            const data = {
+                exportDate: new Date().toISOString(),
+                startWeight: START_WEIGHT,
+                goalWeight: GOAL_WEIGHT,
+                entries: weightData
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `weight-tracker-backup-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function importData(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.entries && Array.isArray(data.entries)) {
+                        if (confirm(`Import ${data.entries.length} entries? This will merge with existing data.`)) {
+                            // Merge entries, avoiding duplicates
+                            const existingDates = new Set(weightData.map(d => d.date));
+                            const newEntries = data.entries.filter(d => !existingDates.has(d.date));
+                            
+                            weightData = [...weightData, ...newEntries];
+                            weightData.sort((a, b) => new Date(a.date) - new Date(b.date));
+                            
+                            saveData();
+                            renderChart();
+                            renderHistory();
+                            updateStats();
+                            
+                            alert(`Imported ${newEntries.length} new entries!`);
+                        }
+                    } else {
+                        alert('Invalid file format');
+                    }
+                } catch (err) {
+                    alert('Error reading file: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            input.value = ''; // Reset input
         }
 
         function renderHistory() {
